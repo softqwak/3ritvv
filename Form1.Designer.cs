@@ -76,7 +76,6 @@
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             toolStripStatusLabel1.Size = new Size(144, 17);
             toolStripStatusLabel1.Text = "Транслятор языка ЛИСП";
-            toolStripStatusLabel1.Click += toolStripStatusLabel1_Click;
             // 
             // splitContainer1
             // 
