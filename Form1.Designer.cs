@@ -48,7 +48,7 @@
             tbxInput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tbxInput.Location = new Point(13, 35);
             tbxInput.Name = "tbxInput";
-            tbxInput.Size = new Size(714, 23);
+            tbxInput.Size = new Size(531, 23);
             tbxInput.TabIndex = 0;
             tbxInput.TextChanged += tbxInput_TextChanged;
             tbxInput.KeyPress += tbxInput_KeyPress;
@@ -65,9 +65,9 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip1.Location = new Point(0, 560);
+            statusStrip1.Location = new Point(0, 364);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(739, 22);
+            statusStrip1.Size = new Size(556, 22);
             statusStrip1.TabIndex = 4;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -91,8 +91,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(tbxError);
-            splitContainer1.Size = new Size(714, 493);
-            splitContainer1.SplitterDistance = 246;
+            splitContainer1.Size = new Size(531, 297);
+            splitContainer1.SplitterDistance = 129;
             splitContainer1.TabIndex = 5;
             // 
             // tbxOutput
@@ -101,7 +101,7 @@
             tbxOutput.Location = new Point(3, 3);
             tbxOutput.Multiline = true;
             tbxOutput.Name = "tbxOutput";
-            tbxOutput.Size = new Size(238, 485);
+            tbxOutput.Size = new Size(121, 289);
             tbxOutput.TabIndex = 0;
             // 
             // tbxError
@@ -111,14 +111,14 @@
             tbxError.Multiline = true;
             tbxError.Name = "tbxError";
             tbxError.ScrollBars = ScrollBars.Vertical;
-            tbxError.Size = new Size(456, 485);
+            tbxError.Size = new Size(390, 289);
             tbxError.TabIndex = 1;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(739, 582);
+            ClientSize = new Size(556, 386);
             Controls.Add(splitContainer1);
             Controls.Add(statusStrip1);
             Controls.Add(label1);
