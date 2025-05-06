@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace _3ritvv
@@ -22,8 +24,10 @@ namespace _3ritvv
         {
             char ch = e.KeyChar;
 
-            // Разрешаем только цифры, буквы, +, *, (, ), пробелы и управляющие символы
-            if (!char.IsControl(ch) && !char.IsDigit(ch) && !char.IsLetter(ch) && ch != '+' && ch != '*' && ch != '(' && ch != ')' && ch != ' ')
+            // Разрешаем цифры, буквы, +, *, (, ), пробелы, ., E, -, и управляющие символы
+            if (!char.IsControl(ch) && !char.IsDigit(ch) && !char.IsLetter(ch) &&
+                ch != '+' && ch != '*' && ch != '(' && ch != ')' && ch != ' ' &&
+                ch != '.' && ch != 'E' && ch != '-')
             {
                 e.Handled = true; // Если символ не разрешён, игнорируем его
             }
@@ -43,7 +47,7 @@ namespace _3ritvv
                 tbxError.Text = "";
             }
             else
-            { 
+            {
                 // Переворачиваем список ошибок
                 errorList.Reverse();
 
@@ -52,7 +56,6 @@ namespace _3ritvv
                 tbxOutput.Text = "";
             }
             isGoodParse = true;
-
         }
 
         private List<string> Tokenize(string input)
@@ -60,10 +63,20 @@ namespace _3ritvv
             if (string.IsNullOrWhiteSpace(input))
                 return new List<string>();
 
+            // Заменяем скобки пробелами для разделения
             input = input.Replace("(", " ( ").Replace(")", " ) ");
-            return input
-                .Split(new[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
+
+            // Используем регулярное выражение для выделения токенов, включая числа в научной нотации
+            var tokens = new List<string>();
+            string pattern = @"(?:\d*\.?\d+(?:[eE][+-]?\d+)?)|[\+\*\(\)]|[a-zA-Z]+|\S+";
+            foreach (Match match in Regex.Matches(input, pattern))
+            {
+                string token = match.Value;
+                if (!string.IsNullOrWhiteSpace(token))
+                    tokens.Add(token);
+            }
+
+            return tokens;
         }
 
         private Expr? Parse(List<string> tokens)
@@ -125,7 +138,7 @@ namespace _3ritvv
 
         private Expr Atom(string token)
         {
-            if (double.TryParse(token, out double number))
+            if (double.TryParse(token, NumberStyles.Float | NumberStyles.AllowExponent, CultureInfo.InvariantCulture, out double number))
                 return new Number(number);
 
             return new Symbol(token);
@@ -175,6 +188,7 @@ namespace _3ritvv
             return 0;
         }
     }
+
     abstract class Expr { }
 
     class Number : Expr
